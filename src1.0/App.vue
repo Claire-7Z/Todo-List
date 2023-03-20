@@ -2,16 +2,16 @@
     <div class="todo-container">
         <div class="todo-wrap">
             <MyHeader :addItem="addItem" />
-            <MyList :todoList="todoList" :delTodo="delTodo" />
-            <MyFooter :finishTodo="finishTodo" :allTodo="allTodo" :allCheck="allCheck" :delDone="delDone" />
+            <MyList :todoList="todoList" />
+            <MyFooter :finishTodo="finishTodo" :allTodo="allTodo" />
         </div>
     </div>
 </template>
 
 <script>
-import MyHeader from './components/MyHeader'
-import MyList from './components/MyList'
-import MyFooter from './components/MyFooter'
+import MyHeader from './components/MyHeader.vue'
+import MyList from './components/MyList.vue'
+import MyFooter from './components/MyFooter.vue'
 
 import {nanoid} from 'nanoid'
 
@@ -24,7 +24,7 @@ export default {
                 {id:nanoid(), title: "烫头", done: true},
                 {id:nanoid(), title: "说相声", done: false},
             ],
-            finishTodo: 0,
+            finishTodo: 0
         }
     },
     components: {
@@ -37,39 +37,13 @@ export default {
         addItem(obj) {
             this.todoList.unshift(obj);
         },
-        // 根据全选框的值切换列表选择框的值
-        allCheck(flag) {
-            if(flag) {
-                this.todoList.forEach( t=> {
-                    t.done = true;
-                })
-            } else {
-                this.todoList.forEach( t=> {
-                    t.done = false;
-                })
-            }
-        },
-        // 删除本选项
-        delTodo(id) {
-            this.todoList = this.todoList.filter( item=> {
-                return item.id != id;
-            })
-        },
-        // 清除已完成
-        delDone() {
-            this.todoList = this.todoList.filter( item=> {
-                return !item.done;
-            })
-        }
     },
     computed: {
-        // 计算“全部”事件
         allTodo() {
             return this.todoList.length;
         }
     },
     watch: {
-        // 监控列表的勾选情况，得到“已完成”事件的值
         todoList: {
             immediate: true,
             deep: true,
@@ -79,8 +53,7 @@ export default {
                     if(t.done) this.finishTodo++
                 });
             }
-        },
-
+        }
     }
 }
 </script>
