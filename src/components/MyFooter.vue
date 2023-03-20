@@ -1,7 +1,7 @@
 <template>
     <div class="todo-footer" v-show="allTodo">
         <label>
-          <input type="checkbox" v-model="allDo" @change="changAllCheck" />
+          <input type="checkbox" v-model="allDo" />
         </label>
         <span>
           <span>已完成{{finishTodo}}</span> / 全部{{allTodo}}
@@ -13,27 +13,51 @@
 <script>
 export default {
     name: "MyFooter",
-    props: ["finishTodo", "allTodo", "allCheck", "delDone"],
+    // "finishTodo", "allTodo" => todoList传到MyFooter计算，无需在App计算后传过去
+    props: ["todoList", "allCheck", "delDone"],
     data() {
         return {
-            allDo: false
+            // allDo: false // 计算属性完成
         }
     },
     methods: {
         // 全选框切换调用父组件的方法控制列表的选择框
-        changAllCheck() {
-            this.allCheck(this.allDo);
+        // 优化：根据计算属性allDo的set事件解决
+        // changAllCheck() {
+        //     this.allCheck(this.allDo);
+        // }
+    },
+    computed: {
+        // 计算“全部”事件
+        allTodo() {
+            return this.todoList.length;
+        },
+        // 计算“已完成”事件的值
+        finishTodo() {
+            return this.todoList.reduce((pre, cur)=> {
+                return pre + (cur.done ? 1 : 0)
+            }, 0)
+        },
+        // 控制全选框
+        allDo: {
+            get() {
+                return this.finishTodo === this.allTodo && this.allTodo > 0
+            },
+            set(v) {
+                this.allCheck(v);
+            }
         }
     },
     watch: {
+        // 优化：计算属性完成
         // 监控“已完成”事件，与“全部”事件相等，则全选勾中
-        finishTodo(v) {
-            if(v === this.allTodo && v != 0) {
-                this.allDo = true;
-            } else {
-                this.allDo = false;
-            }
-        }
+        // finishTodo(v) {
+        //     if(v === this.allTodo && v != 0) {
+        //         this.allDo = true;
+        //     } else {
+        //         this.allDo = false;
+        //     }
+        // }
     }
 }
 </script>

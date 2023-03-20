@@ -1,5 +1,5 @@
 <template>
-    <div class="todo-footer">
+    <div class="todo-footer" v-show="allTodo">
         <label>
           <input type="checkbox" v-model="allDo" @change="changAllCheck" />
         </label>

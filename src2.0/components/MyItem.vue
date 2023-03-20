@@ -4,14 +4,14 @@
             <input type="checkbox" :checked="todoObj.done" @click="exCheck(todoObj.id)" />
             <span>{{todoObj.title}}</span>
         </label>
-        <button class="btn btn-danger" v-show="btnFlag" @click="delTodo(todoObj.id)">删除</button>
+        <button class="btn btn-danger" @click="delTodo(todoObj.id)">删除</button>
     </li>
 </template>
 
 <script>
 export default {
     name: "MyItem",
-    props: ["todoObj", 'exCheck', "btnFlag","delTodo"],
+    props: ["todoObj", 'exCheck',"delTodo"],
     data() {
         return {
             
@@ -45,7 +45,7 @@ export default {
 
     li button {
     float: right;
-    /* display: none; */
+    display: none;
     margin-top: 3px;
     }
 
@@ -55,5 +55,11 @@ export default {
 
     li:last-child {
     border-bottom: none;
+    }
+    li:hover {
+        background-color: aquamarine;
+    }
+    li:hover button {
+        display: block;
     }
 </style>

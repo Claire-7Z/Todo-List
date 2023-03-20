@@ -1,6 +1,6 @@
 <template>
     <ul class="todo-main">
-        <MyItem v-for="t in todoList" :key="t.id" :todoObj="t" :exCheck="exCheck" @click="console.log(123)" @mouseover="btnFlag=true;console.log('**************')" @mouseleave="btnFlag=false" :btnFlag="btnFlag" :delTodo='delTodo' />
+        <MyItem v-for="t in todoList" :key="t.id" :todoObj="t" :exCheck="exCheck" :delTodo='delTodo' />
     </ul>
 </template>
 
@@ -14,7 +14,6 @@ export default {
     props: ['todoList', "delTodo"],
     data() {
         return {
-            btnFlag: true
         }
     },
     components: {
