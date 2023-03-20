@@ -2,7 +2,7 @@
     <div class="todo-container">
         <div class="todo-wrap">
             <MyHeader :addItem="addItem" />
-            <MyList :todoList="todoList" :delTodo="delTodo" />
+            <MyList :todoList="todoList" :exCheck="exCheck" :delTodo="delTodo" />
             <MyFooter :todoList="todoList" :allCheck="allCheck" :delDone="delDone" />
         </div>
     </div>
@@ -53,6 +53,14 @@ export default {
             this.todoList.forEach( t=> {
                 t.done = flag
             })
+        },
+        // 切换选中状态
+        exCheck(id) {
+            this.todoList.forEach(t => {
+                if(t.id === id) {
+                    t.done = !t.done;
+                }
+            });
         },
         // 删除本选项
         delTodo(id) {

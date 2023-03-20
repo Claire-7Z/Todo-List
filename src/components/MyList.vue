@@ -11,7 +11,7 @@ import MyItem from './MyItem.vue'
 export default {
     name: "MyList",
     // delTodo 给MyItem使用
-    props: ['todoList', "delTodo"],
+    props: ['todoList', "exCheck", "delTodo"],
     data() {
         return {
         }
@@ -20,14 +20,7 @@ export default {
         MyItem
     },
     methods: {
-        // 切换选中状态
-        exCheck(id) {
-            this.todoList.forEach(t => {
-                if(t.id === id) {
-                    t.done = !t.done;
-                }
-            });
-        },
+        
     },
 }
 </script>
