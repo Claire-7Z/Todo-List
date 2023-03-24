@@ -6,7 +6,7 @@
         <span>
           <span>已完成{{finishTodo}}</span> / 全部{{allTodo}}
         </span>
-        <button class="btn btn-danger" @click="clearDone">清除已完成任务</button>
+        <button class="btn btn-danger" @click="delDone">清除已完成任务</button>
     </div>
 </template>
 
@@ -14,12 +14,18 @@
 export default {
     name: "MyFooter",
     // "finishTodo", "allTodo" => todoList传到MyFooter计算，无需在App计算后传过去
-    // "allCheck", "delDone" 使用自定义事件
-    props: ["todoList"],
-    methods: {
-        clearDone() {
-            this.$emit("delDone");
+    props: ["todoList", "allCheck", "delDone"],
+    data() {
+        return {
+            // allDo: false // 计算属性完成
         }
+    },
+    methods: {
+        // 全选框切换调用父组件的方法控制列表的选择框
+        // 优化：根据计算属性allDo的set事件解决
+        // changAllCheck() {
+        //     this.allCheck(this.allDo);
+        // }
     },
     computed: {
         // 计算“全部”事件
@@ -38,11 +44,20 @@ export default {
                 return this.finishTodo === this.allTodo && this.allTodo > 0
             },
             set(v) {
-                // 自定义事件触发
-                // this.allCheck(v);
-                this.$emit("allCheck", v);
+                this.allCheck(v);
             }
         }
+    },
+    watch: {
+        // 优化：计算属性完成
+        // 监控“已完成”事件，与“全部”事件相等，则全选勾中
+        // finishTodo(v) {
+        //     if(v === this.allTodo && v != 0) {
+        //         this.allDo = true;
+        //     } else {
+        //         this.allDo = false;
+        //     }
+        // }
     }
 }
 </script>

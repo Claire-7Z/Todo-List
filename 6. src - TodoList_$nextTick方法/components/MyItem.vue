@@ -22,7 +22,6 @@
 
 <script>
 import pubsub from "pubsub-js"
-
 export default {
     name: "MyItem",
     // exCheck 使用全局事件总线

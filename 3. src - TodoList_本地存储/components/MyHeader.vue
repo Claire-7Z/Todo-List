@@ -11,8 +11,7 @@ import { nanoid } from 'nanoid'
 export default {
     name: "MyHeader",
     // 接收父组件添加列表值的方法
-    // 使用自定义事件完成，无需引入
-    // props: ['addItem'],
+    props: ['addItem'],
     data() {
         return {
             title: ''
@@ -26,9 +25,7 @@ export default {
                 return
             }
             var obj = {id: nanoid(), title: this.title, done: false};
-            // 使用自定义事件完成，无需调用props引入的方法
-            // this.addItem(obj);
-            this.$emit("addItem", obj)
+            this.addItem(obj);
             this.title = '';
         }
     }

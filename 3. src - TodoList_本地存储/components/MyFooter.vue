@@ -6,7 +6,7 @@
         <span>
           <span>已完成{{finishTodo}}</span> / 全部{{allTodo}}
         </span>
-        <button class="btn btn-danger" @click="clearDone">清除已完成任务</button>
+        <button class="btn btn-danger" @click="delDone">清除已完成任务</button>
     </div>
 </template>
 
@@ -14,13 +14,7 @@
 export default {
     name: "MyFooter",
     // "finishTodo", "allTodo" => todoList传到MyFooter计算，无需在App计算后传过去
-    // "allCheck", "delDone" 使用自定义事件
-    props: ["todoList"],
-    methods: {
-        clearDone() {
-            this.$emit("delDone");
-        }
-    },
+    props: ["todoList", "allCheck", "delDone"],
     computed: {
         // 计算“全部”事件
         allTodo() {
@@ -38,9 +32,7 @@ export default {
                 return this.finishTodo === this.allTodo && this.allTodo > 0
             },
             set(v) {
-                // 自定义事件触发
-                // this.allCheck(v);
-                this.$emit("allCheck", v);
+                this.allCheck(v);
             }
         }
     }
