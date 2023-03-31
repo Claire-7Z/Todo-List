@@ -1,35 +1,17 @@
 <template>
     <div>
-        <button @click="getStudents">获取学生信息</button>
-        <button @click="getCars">获取汽车信息</button>
+        <Count/>
+        <hr>
+        <Persons/>
     </div>
 </template>
 
 <script>
-import axios from "axios"
+import Count from "./components/Count.vue"
+import Persons from "./components/Persons.vue"
+
 export default {
     name: "App",
-    methods: {
-        getStudents() {
-            axios.get("http://localhost:8080/api1/students").then(
-                response => {
-                    console.log("请求xs成功了", response.data)
-                },
-                error => {
-                    console.log("请求xs失败了", error.message)
-                }
-            )
-        },
-        getCars() {
-            axios.get("http://localhost:8080/api2/cars").then(
-                response => {
-                    console.log("请求car成功了", response.data)
-                },
-                error => {
-                    console.log("请求car失败了", error.message)
-                }
-            )
-        }
-    }
+    components: {Count, Persons}
 }
 </script>
