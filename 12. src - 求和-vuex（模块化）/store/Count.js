@@ -1,5 +1,5 @@
 export default {
-    namespaced: true,
+    namespaced: true,   //开启命名空间
     actions: {
         increment(context, v) {
             context.commit("increment", v);
